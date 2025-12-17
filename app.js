@@ -62,7 +62,7 @@ async function generateNeutralAnalysis() {
     errorEl.classList.add('hidden');
 
     // Show loading
-    loadingText.textContent = 'Generating "neutral" analysis...';
+    loadingText.textContent = 'Generating neutral analysis...';
     loadingEl.classList.remove('hidden');
     generateBtn.disabled = true;
 
