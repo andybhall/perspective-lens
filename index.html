@@ -19,12 +19,12 @@
         <section class="about-box">
             <h2>Why This Tool Exists</h2>
             <p>
-                AI systems often personalize responses based on what they infer about your views—without telling you. 
+                AI systems often personalize responses based on what they infer about your views—without telling you.
                 This creates an illusion of objectivity while quietly filtering information through hidden assumptions.
             </p>
             <p>
-                <strong>Perspective Lens takes a different approach.</strong> Instead of pretending to be neutral, 
-                it explicitly shows you how different ideological frameworks would analyze the same question. 
+                <strong>Perspective Lens takes a different approach.</strong> Instead of pretending to be neutral,
+                it explicitly shows you how different ideological frameworks would analyze the same question.
                 The bias becomes a tool you pick up, not a filter you can't see.
             </p>
             <p class="philosophy"><em>Transparency preserves agency.</em></p>
@@ -32,15 +32,37 @@
 
         <section class="input-section">
             <label for="question">Your Question</label>
-            <textarea 
-                id="question" 
+            <textarea
+                id="question"
                 placeholder="Enter a political or policy question... (e.g., 'Should the minimum wage be raised to $20/hour?' or 'What should US immigration policy look like?')"
                 rows="3"
             ></textarea>
         </section>
 
-        <section class="lens-section">
-            <label>Choose Your Lens</label>
+        <button id="generate-btn" class="generate-btn" disabled>
+            Analyze Question
+        </button>
+
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p id="loading-text">Generating neutral analysis...</p>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+
+        <!-- Neutral Response (always shown first) -->
+        <section id="neutral-section" class="response-section hidden" data-lens="neutral">
+            <div class="response-header">
+                <span class="response-lens-icon">🔍</span>
+                <h3>Neutral Analysis</h3>
+                <span class="perspective-badge">Balanced Overview</span>
+            </div>
+            <div id="neutral-content" class="response-content"></div>
+        </section>
+
+        <!-- Perspective Selector (shown after neutral response) -->
+        <section id="perspective-section" class="perspective-section hidden">
+            <label>Compare with an ideological perspective</label>
             <div class="lens-buttons">
                 <button class="lens-btn" data-lens="libertarian">
                     <span class="lens-icon">🗽</span>
@@ -62,18 +84,11 @@
                     <span class="lens-icon">🔨</span>
                     <span class="lens-name">Marxist</span>
                 </button>
-                <button class="lens-btn" data-lens="neutral">
-                    <span class="lens-icon">🔍</span>
-                    <span class="lens-name">Neutral</span>
-                </button>
             </div>
         </section>
 
-        <button id="generate-btn" class="generate-btn" disabled>
-            Generate Perspective
-        </button>
-
-        <section id="response-section" class="response-section hidden">
+        <!-- Perspective Response (shown after user selects a lens) -->
+        <section id="perspective-response" class="response-section hidden">
             <div class="response-header">
                 <span id="response-lens-icon" class="response-lens-icon"></span>
                 <h3 id="response-lens-name"></h3>
@@ -81,17 +96,10 @@
             </div>
             <div id="response-content" class="response-content"></div>
             <p class="disclaimer">
-                ⚠️ This response represents a constructed ideological perspective, not factual claims or the AI's own views. 
+                ⚠️ This response represents a constructed ideological perspective, not factual claims or the AI's own views.
                 It's designed to show how advocates of this worldview might analyze this question.
             </p>
         </section>
-
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Generating perspective...</p>
-        </div>
-
-        <div id="error" class="error hidden"></div>
 
         <footer>
             <p>Built to demonstrate transparent AI framing. <a href="https://github.com/YOUR_USERNAME/perspective-lens" target="_blank">View source</a></p>

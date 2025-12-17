@@ -108,6 +108,22 @@ textarea::placeholder {
     margin-bottom: 1.5rem;
 }
 
+.perspective-section {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+.perspective-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #e0e0e0;
+    text-align: center;
+}
+
 .lens-buttons {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -241,6 +257,10 @@ textarea::placeholder {
 
 .response-section[data-lens="marxist"] .response-header {
     background: rgba(157, 2, 8, 0.1);
+}
+
+.response-section[data-lens="neutral"] .response-header {
+    background: rgba(102, 126, 234, 0.1);
 }
 
 .response-lens-icon {
