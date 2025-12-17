@@ -18,7 +18,8 @@ const lensInfo = {
     maga: { name: 'MAGA', icon: '🦅' },
     progressive: { name: 'Progressive', icon: '✊' },
     centerleft: { name: 'Center-Left', icon: '⚖️' },
-    marxist: { name: 'Marxist', icon: '🔨' }
+    marxist: { name: 'Marxist', icon: '🔨' },
+    centrist: { name: 'Centrist', icon: '🎯' }
 };
 
 // Event Listeners
