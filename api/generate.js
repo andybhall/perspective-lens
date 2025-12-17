@@ -133,8 +133,13 @@ Provide a thoughtful analysis from this perspective. Be specific and substantive
 
     } catch (error) {
         console.error('Gemini API error:', error);
-        return res.status(500).json({ 
-            error: 'Failed to generate response. Please try again.' 
+        console.error('Error name:', error.name);
+        console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
+
+        // Return more detailed error for debugging
+        return res.status(500).json({
+            error: `Failed to generate response: ${error.message || 'Unknown error'}`
         });
     }
 };
