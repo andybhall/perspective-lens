@@ -115,31 +115,43 @@ module.exports = async function handler(req, res) {
         return res.status(500).json({ error: 'API key not configured' });
     }
 
-    try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
-
-        const prompt = `${personas[lens]}
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+    const prompt = `${personas[lens]}
 
 The user's question is: ${question.trim()}
 
 Provide a thoughtful analysis from this perspective. Be specific and substantive. Aim for 2-4 paragraphs.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+    let lastError;
 
-        return res.status(200).json({ response: text });
+    for (const modelName of models) {
+        // Try each model with up to 2 attempts
+        for (let attempt = 0; attempt < 2; attempt++) {
+            try {
+                console.log(`Trying ${modelName}, attempt ${attempt + 1}`);
+                const model = genAI.getGenerativeModel({ model: modelName });
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                const text = response.text();
+                return res.status(200).json({ response: text });
+            } catch (error) {
+                console.error(`${modelName} attempt ${attempt + 1} failed:`, error.message);
+                lastError = error;
 
-    } catch (error) {
-        console.error('Gemini API error:', error);
-        console.error('Error name:', error.name);
-        console.error('Error message:', error.message);
-        console.error('Error stack:', error.stack);
-
-        // Return more detailed error for debugging
-        return res.status(500).json({
-            error: `Failed to generate response: ${error.message || 'Unknown error'}`
-        });
+                // If overloaded, wait a bit before retry
+                if (error.message?.includes('503') || error.message?.includes('overloaded')) {
+                    await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+                } else {
+                    break; // Non-transient error, try next model
+                }
+            }
+        }
     }
+
+    // All attempts failed
+    console.error('All model attempts failed:', lastError);
+    return res.status(500).json({
+        error: `Failed to generate response: ${lastError?.message || 'Unknown error'}`
+    });
 };
