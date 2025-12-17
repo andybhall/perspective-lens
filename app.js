@@ -3,6 +3,8 @@ const questionInput = document.getElementById('question');
 const generateBtn = document.getElementById('generate-btn');
 const loadingEl = document.getElementById('loading');
 const loadingText = document.getElementById('loading-text');
+const perspectiveLoadingEl = document.getElementById('perspective-loading');
+const perspectiveLoadingText = document.getElementById('perspective-loading-text');
 const errorEl = document.getElementById('error');
 
 // Neutral response elements
@@ -106,11 +108,11 @@ async function generatePerspective(lens) {
     const selectedBtn = document.querySelector(`.lens-btn[data-lens="${lens}"]`);
     if (selectedBtn) selectedBtn.classList.add('selected');
 
-    // Hide previous perspective response and show loading
+    // Hide previous perspective response and show loading (inline, below selector)
     perspectiveResponse.classList.add('hidden');
     errorEl.classList.add('hidden');
-    loadingText.textContent = `Generating ${lensInfo[lens].name} perspective...`;
-    loadingEl.classList.remove('hidden');
+    perspectiveLoadingText.textContent = `Generating ${lensInfo[lens].name} perspective...`;
+    perspectiveLoadingEl.classList.remove('hidden');
 
     // Disable lens buttons while loading
     lensButtons.forEach(b => b.disabled = true);
@@ -145,7 +147,7 @@ async function generatePerspective(lens) {
         errorEl.textContent = `Error: ${err.message}. Please try again.`;
         errorEl.classList.remove('hidden');
     } finally {
-        loadingEl.classList.add('hidden');
+        perspectiveLoadingEl.classList.add('hidden');
         lensButtons.forEach(b => b.disabled = false);
     }
 }

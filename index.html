@@ -17,17 +17,16 @@
         </header>
 
         <section class="about-box">
-            <h2>Why This Tool Exists</h2>
+            <h2>How It Works</h2>
             <p>
-                AI systems often personalize responses based on what they infer about your views—without telling you.
-                This creates an illusion of objectivity while quietly filtering information through hidden assumptions.
+                <strong>1.</strong> Ask any political or policy question and get a <strong>neutral analysis</strong> first—presenting
+                multiple viewpoints without taking sides.
             </p>
             <p>
-                <strong>Perspective Lens takes a different approach.</strong> Instead of pretending to be neutral,
-                it explicitly shows you how different ideological frameworks would analyze the same question.
-                The bias becomes a tool you pick up, not a filter you can't see.
+                <strong>2.</strong> Then <strong>compare with an ideological perspective</strong> to see how advocates
+                of that worldview would analyze the same question.
             </p>
-            <p class="philosophy"><em>Transparency preserves agency.</em></p>
+            <p class="philosophy"><em>The bias becomes a tool you pick up, not a filter you can't see.</em></p>
         </section>
 
         <section class="input-section">
@@ -86,6 +85,12 @@
                 </button>
             </div>
         </section>
+
+        <!-- Perspective Loading (inline, below the selector) -->
+        <div id="perspective-loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p id="perspective-loading-text">Generating perspective...</p>
+        </div>
 
         <!-- Perspective Response (shown after user selects a lens) -->
         <section id="perspective-response" class="response-section hidden">
